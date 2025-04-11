@@ -3,3 +3,7 @@
 __pycache__/
 *.pyc
 data/
+
+# Allow ontology mapping files to be tracked and stored on GitHub
+!data/*.ttl
+!data/*.json

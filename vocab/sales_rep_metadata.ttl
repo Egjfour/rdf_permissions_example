@@ -1,0 +1,49 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rml: <http://w3id.org/rml/>.
+@prefix ql: <http://semweb.mmlab.be/ns/ql#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix : <local://security.permissions.net/vocab#> .
+@prefix data: <local://security.permissions.net/entities#> .
+
+# Define Classes
+:SalesRep rdfs:subclassOf :User ;
+    rdfs:label "Sales Representative"@en .
+
+# Define properties
+:managedBy a rdf:Property ;
+    owl:inverseOf :manages ;
+    rdfs:label "has manager" ;
+    rdfs:domain rdfs:Resource ;
+    rdfs:range :Manager .
+
+:handlesRegion a rdf:Property ;
+    rdfs:label "handles region" ;
+    rdfs:domain :SalesRep ;
+    rdfs:range :Region .
+
+# Transform the CSV file into RDF triples
+:SalesRepTriplesMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "../data/sales_reps.csv" ;  # Replace with the actual path to your CSV file
+        rml:referenceFormulation ql:CSV ;
+    ] ;
+    rr:subjectMap [
+        rr:template "local://security.permissions.net/entities#{SalesRep}" ;
+        rr:class :SalesRep ;
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :managedBy ;
+        rr:objectMap [
+            rr:template "local://security.permissions.net/entities#{Manager}" ;
+        ] ;
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :handlesRegion ;
+        rr:objectMap [
+            rr:template "local://security.permissions.net/entities#{Region}" ;
+        ] ;
+    ] .
+

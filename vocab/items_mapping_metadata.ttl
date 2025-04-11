@@ -1,0 +1,111 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rml: <http://w3id.org/rml/>.
+@prefix ql: <http://semweb.mmlab.be/ns/ql#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix : <local://security.permissions.net/vocab#> .
+
+# Class definitions
+:Item a rdfs:Class;
+    rdfs:label "Item" .
+
+:Country a rdfs:Class;
+    rdfs:label "Country" .
+
+:Record a owl:Class;
+    rdfs:label "An individual record for a unique observation"@en;
+    owl:hasKey (:item :country) .
+
+# Property definitions
+:item a owl:SymmetricProperty;
+    rdfs:label "Item being managed in the app"@en .
+
+:country a owl:SymmetricProperty;
+    rdfs:label "Country of reference for a specific record"@en .
+
+:inDepartment a rdf:Property;
+    rdfs:label "Department in which the item is managed"@en .
+
+:inRegion a rdf:Property;
+    owl:inverseOf :hasCountry ;
+    rdfs:label "Region of the country"@en .
+
+:hasCost a rdf:Property;
+    rdfs:label "Most recent transaction cost of the item for the given country"@en .
+
+:hasMostRecentDate a rdf:Property;
+    rdfs:label "Most recent transaction date of the item for the given country"@en .
+
+
+### CSV MAPPING
+# Define the logical source
+:LogicalSource a rml:LogicalSource;
+    rml:source "../data/items_final.csv";  # Replace with the actual path to your CSV file
+    rml:referenceFormulation ql:CSV.
+
+# Define the triples map for individual records which are attached to classes
+:ItemsTriplesMap a rr:TriplesMap;
+    rml:logicalSource :LogicalSource;
+    rr:subjectMap [
+        rr:template "local://security.permissions.net/entities#{ItemCode}";
+        rr:class :Item;
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :hasDescription;
+        rr:objectMap [
+            rr:template "local://security.permissions.net/entities#{ItemDescription}"
+        ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :inDepartment;
+        rr:objectMap [
+            rr:template "local://security.permissions.net/entities#{Department}"
+        ]
+    ] . 
+
+:CountriesTriplesMap a rr:TriplesMap;
+    rml:logicalSource :LogicalSource;
+    rr:subjectMap [
+        rr:template "local://security.permissions.net/entities#{Country}";
+        rr:class :Country;
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :inRegion;
+        rr:objectMap [
+            rr:template "local://security.permissions.net/entities#{Region}"
+        ]
+    ] .
+
+# Define the triples map for unique records and their attributes
+:RecordsTriplesMap a rr:TriplesMap;
+    rml:logicalSource :LogicalSource;
+    rr:subjectMap [
+        rr:template "local://security.permissions.net/entities#{ItemCode}#{Country}";
+        rr:class :Record;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate :item;
+        rr:objectMap [
+            rr:template "local://security.permissions.net/entities#{ItemCode}"
+        ]
+    ];
+    rr:predicateObjectMap [
+        rr:predicate :country;
+        rr:objectMap [
+            rr:template "local://security.permissions.net/entities#{Country}"
+        ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :hasCost;
+        rr:objectMap [
+            rr:template "local://security.permissions.net/entities#{CostPerItem}"
+        ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :hasMostRecentDate;
+        rr:objectMap [
+            rr:template "local://security.permissions.net/entities#{LastTransactionDate}"
+        ]
+    ] .

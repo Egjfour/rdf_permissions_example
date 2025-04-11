@@ -1,0 +1,55 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rml: <http://w3id.org/rml/>.
+@prefix ql: <http://semweb.mmlab.be/ns/ql#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix : <local://security.permissions.net/vocab#> .
+
+# Define the ontological components relevant to this mapping
+:Manager a rdfs:Class;
+    rdfs:subclassOf :User ;
+    rdfs:label "Manager".
+
+:Department a rdfs:Class;
+    rdfs:label "Department".
+
+:manages a rdf:Property;
+    owl:inverseOf :managedBy;
+    rdfs:subPropertyOf :hasAccess;
+    rdfs:domain :Manager;
+    rdfs:label "manages".
+
+:managesDepartment rdfs:subProperytyOf :manages;
+    rdfs:domain :Manager;
+    rdfs:range :Department;
+    rdfs:label "A manager managing a department of items".
+
+### CSV MAPPING
+# Define the logical source
+:LogicalSource a rml:LogicalSource;
+    rml:source "../data/manager_mapping.csv";  # Replace with the actual path to your CSV file
+    rml:referenceFormulation ql:CSV.
+
+# Define the triples map for managers
+:ManagerTriplesMap a rr:TriplesMap;
+    rml:logicalSource :LogicalSource;
+    rr:subjectMap [
+        rr:template "local://security.permissions.net/entities#{Manager}";
+        rr:class :Manager;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate :managesDepartment;
+        rr:objectMap [
+            rr:template "local://security.permissions.net/entities#{Department}"
+        ]
+    ].
+
+# Define the triples map for departments
+:DepartmentTriplesMap a rr:TriplesMap;
+    rml:logicalSource :LogicalSource;
+    rr:subjectMap [
+        rr:template "local://security.permissions.net/entities#{Department}";
+        rr:class :Department;
+    ].
