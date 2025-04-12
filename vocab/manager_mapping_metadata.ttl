@@ -7,26 +7,6 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix : <local://security.permissions.net/vocab#> .
 
-# Define the ontological components relevant to this mapping
-:Manager a rdfs:Class;
-    rdfs:subclassOf :User ;
-    rdfs:label "Manager".
-
-:Department a rdfs:Class;
-    rdfs:label "Department".
-
-:manages a rdf:Property;
-    owl:inverseOf :managedBy;
-    rdfs:subPropertyOf :hasAccess;
-    rdfs:domain :Manager;
-    rdfs:label "manages".
-
-:managesDepartment rdfs:subProperytyOf :manages;
-    rdfs:domain :Manager;
-    rdfs:range :Department;
-    rdfs:label "A manager managing a department of items".
-
-### CSV MAPPING
 # Define the logical source
 :LogicalSource a rml:LogicalSource;
     rml:source "../data/manager_mapping.csv";  # Replace with the actual path to your CSV file

@@ -8,15 +8,76 @@
 :User a rdfs:Class ;
     rdfs:label "A user of the application who can have permissions."@en .
 
-# Properties
-:hasAccessTransitive a owl:TransitiveProperty, owl:ObjectProperty ;
-    rdfs:label "has transitive access to" .
+:Manager a rdfs:Class;
+    rdfs:subClassOf :User ;
+    rdfs:label "Manager".
 
-:hasAccess a rdf:Property ;
-    rdfs:subPropertyOf :hasAccessTransitive ;
+:Department a rdfs:Class;
+    rdfs:label "Department".
+
+:SalesRep a rdfs:Class;
+    rdfs:subClassOf :User ;
+    rdfs:label "Sales Representative".
+
+:Item a rdfs:Class;
+    rdfs:label "Item" .
+
+:Country a rdfs:Class;
+    rdfs:label "Country" .
+
+:Region a rdfs:Class;
+    rdfs:label "Region" .
+
+:Record a rdfs:Class ;
+    rdfs:label "An individual record for a unique observation"@en;
+    owl:hasKey (:item :country) .
+
+# Properties
+:hasAccess a rdf:Property, owl:TransitiveProperty;
     rdfs:label "has access to" ;
-    rdfs:domain :User ;
+    rdfs:domain rdfs:Resource ;
     rdfs:range rdfs:Resource .
 
-:repAccess owl:intersectionOf ( owl:propertyChainAxiom(:handlesRegion :hasCountry :country) [ owl:propertyChainAxiom(:managedBy :hasAccessTransitive :item) ]) ;
+:repDepartment owl:propertyChainAxiom (:managedBy :managesDepartment) ;
     rdfs:subPropertyOf :hasAccess .
+
+:manages a rdf:Property;
+    owl:inverseOf :managedBy;
+    rdfs:subPropertyOf :hasAccess;
+    rdfs:label "manages".
+
+:managesDepartment rdfs:subPropertyOf :manages;
+    rdfs:domain :Manager;
+    rdfs:range :Department;
+    rdfs:label "A manager managing a department of items".
+
+:handlesRegion rdfs:subPropertyOf :hasAccess ;
+    rdfs:label "handles region" ;
+    rdfs:domain :SalesRep ;
+    rdfs:range :Region .
+
+:item a owl:SymmetricProperty;
+    rdfs:label "Item being managed in the app"@en .
+
+:country a owl:SymmetricProperty;
+    rdfs:label "Country of reference for a specific record"@en .
+
+:inDepartment a rdf:Property;
+    owl:inverseOf :hasItem ;
+    rdfs:label "Department in which the item is managed"@en .
+
+:hasItem rdfs:subPropertyOf :manages ;
+    rdfs:label "Item being managed in the app"@en ;
+    rdfs:comment "Exists to provide an access path for departments to the items contained within."@en .
+
+:inRegion a rdf:Property;
+    owl:inverseOf :hasCountry ;
+    rdfs:label "Region of the country"@en .
+
+:hasCountry rdfs:subPropertyOf :hasAccess .
+
+:hasCost a rdf:Property;
+    rdfs:label "Most recent transaction cost of the item for the given country"@en .
+
+:hasMostRecentDate a rdf:Property;
+    rdfs:label "Most recent transaction date of the item for the given country"@en .

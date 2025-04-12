@@ -7,39 +7,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix : <local://security.permissions.net/vocab#> .
 
-# Class definitions
-:Item a rdfs:Class;
-    rdfs:label "Item" .
 
-:Country a rdfs:Class;
-    rdfs:label "Country" .
-
-:Record a owl:Class;
-    rdfs:label "An individual record for a unique observation"@en;
-    owl:hasKey (:item :country) .
-
-# Property definitions
-:item a owl:SymmetricProperty;
-    rdfs:label "Item being managed in the app"@en .
-
-:country a owl:SymmetricProperty;
-    rdfs:label "Country of reference for a specific record"@en .
-
-:inDepartment a rdf:Property;
-    rdfs:label "Department in which the item is managed"@en .
-
-:inRegion a rdf:Property;
-    owl:inverseOf :hasCountry ;
-    rdfs:label "Region of the country"@en .
-
-:hasCost a rdf:Property;
-    rdfs:label "Most recent transaction cost of the item for the given country"@en .
-
-:hasMostRecentDate a rdf:Property;
-    rdfs:label "Most recent transaction date of the item for the given country"@en .
-
-
-### CSV MAPPING
 # Define the logical source
 :LogicalSource a rml:LogicalSource;
     rml:source "../data/items_final.csv";  # Replace with the actual path to your CSV file
