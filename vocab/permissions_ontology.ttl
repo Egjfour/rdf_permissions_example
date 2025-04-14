@@ -41,9 +41,8 @@
 :repDepartment owl:propertyChainAxiom (:managedBy :managesDepartment) ;
     rdfs:subPropertyOf :hasAccess .
 
-:manages a rdf:Property;
+:manages rdfs:subPropertyOf :hasAccess;
     owl:inverseOf :managedBy;
-    rdfs:subPropertyOf :hasAccess;
     rdfs:label "manages".
 
 :managesDepartment rdfs:subPropertyOf :manages;
@@ -66,7 +65,7 @@
     owl:inverseOf :hasItem ;
     rdfs:label "Department in which the item is managed"@en .
 
-:hasItem rdfs:subPropertyOf :manages ;
+:hasItem rdfs:subPropertyOf :hasAccess ;
     rdfs:label "Item being managed in the app"@en ;
     rdfs:comment "Exists to provide an access path for departments to the items contained within."@en .
 

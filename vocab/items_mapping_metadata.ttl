@@ -21,12 +21,6 @@
         rr:class :Item;
     ] ;
     rr:predicateObjectMap [
-        rr:predicate :hasDescription;
-        rr:objectMap [
-            rr:template "local://security.permissions.net/entities#{ItemDescription}"
-        ]
-    ] ;
-    rr:predicateObjectMap [
         rr:predicate :inDepartment;
         rr:objectMap [
             rr:template "local://security.permissions.net/entities#{Department}"
@@ -63,17 +57,5 @@
         rr:predicate :country;
         rr:objectMap [
             rr:template "local://security.permissions.net/entities#{Country}"
-        ]
-    ] ;
-    rr:predicateObjectMap [
-        rr:predicate :hasCost;
-        rr:objectMap [
-            rr:template "local://security.permissions.net/entities#{CostPerItem}"
-        ]
-    ] ;
-    rr:predicateObjectMap [
-        rr:predicate :hasMostRecentDate;
-        rr:objectMap [
-            rr:template "local://security.permissions.net/entities#{LastTransactionDate}"
         ]
     ] .

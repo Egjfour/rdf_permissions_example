@@ -1,0 +1,32 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix : <local://security.permissions.net/vocab#> .
+
+#Classes
+:User a rdfs:Class ;
+    rdfs:label "A user of the application who can have permissions."@en .
+
+:Manager a rdfs:Class;
+    rdfs:subClassOf :User ;
+    rdfs:label "Manager".
+
+:SalesRep a rdfs:Class;
+    rdfs:subClassOf :User ;
+    rdfs:label "Sales Representative".
+
+# Properties
+:hasAccess a rdf:Property, owl:TransitiveProperty;
+    rdfs:label "has access to" ;
+    rdfs:domain rdfs:Resource ;
+    rdfs:range rdfs:Resource .
+
+:handlesRegion rdfs:subPropertyOf :hasAccess ;
+    rdfs:label "handles region" ;
+    rdfs:domain :SalesRep ;
+    rdfs:range :Region .
+
+:manages rdfs:subPropertyOf :hasAccess;
+    owl:inverseOf :managedBy;
+    rdfs:label "manages".
