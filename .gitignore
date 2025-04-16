@@ -4,4 +4,5 @@ __pycache__/
 *.pyc
 data/*.csv
 data/*.rdf
-data/server
+data/server/*.rdf
+*.log

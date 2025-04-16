@@ -29,8 +29,7 @@
     rdfs:label "Region" .
 
 :Record a rdfs:Class ;
-    rdfs:label "An individual record for a unique observation"@en;
-    owl:hasKey (:item :country) .
+    rdfs:label "An individual record for a unique observation"@en .
 
 # Properties
 :hasAccess a rdf:Property, owl:TransitiveProperty;
