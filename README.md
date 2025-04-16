@@ -13,15 +13,17 @@ A small example of the RDF data structure and expected inference can be seen usi
     - `2-graph_setup.ipynb`: Applies the `morph_kgc` library to implement the CSV-LD protocol and generate RDF from the 3 CSV files created in the previous notebook
         - Also adds the ontology file to this graph
     - `3-query_graph-*.ipynb`: Different tests of implementations of applying OWL and RDFS reasoning to query results from Python
-        - NOTE: currently none of these pass the test cases. `corese_python` and `kglab` take unacceptable amounts of time to process OWL rules and I have so far been unsuccessful getting `corese_server` to apply ontological inference
-        - `corese_server` requires running the a [Corese server](https://hub.docker.com/r/wimmics/corese) locally at port `8080` with a volume mount of `data/server` which contains the output from notebook 2
+        - `kglab` takes unacceptable amounts of time to process the query
+        - `corese_server` requires running the a [Corese server](https://hub.docker.com/r/wimmics/corese) locally at port `8080` with a volume mount of `data/server` which contains the output from notebook 2.
+        - `corese_python` maintains the inference and query speeds of corese-server but has less overhead and executes inference on-the-fly
+        - Both `corese_server` and `corese_python` require having a Java runtime environment installed (at least version 11)
 ### /vocab
 - Contains metadata files for each of the three CSVs to load to express the mapping logic
 - Additionally contains a separate ontology file to use for reasonining
     - The ontology MUST be loaded separately into RDFLib to be captured in the final graph from `/src/2-graph_setup.ipynb`
 
 ## TO DO
-- Get OWL reasonining working for Corese server
+- Add more details to the ontology and cleanup some of the relationships like `:Record :item :Item` and `:Record :country :Country`
 - Setup a triple store using [Apache Jena](https://jena.apache.org/documentation/tdb/index.html) and use that as a [persistent data storage solution](https://github.com/Wimmics/corese/blob/master/docs/storage/Configuring%20and%20Connecting%20to%20Different%20Storage%20Systems%20in%20Corese.md) for the Corese server
 - Add more complex rules such as negation to showcase more functionality
 - Enhance the ontology to make the querying simpler and more efficient at run time

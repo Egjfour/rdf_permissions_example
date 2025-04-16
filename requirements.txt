@@ -5,6 +5,7 @@ jsonpointer==3.0.0
 jupyter==1.1.1
 kglab==0.6.6
 pip-chill==1.0.3
+pycorese==0.2.0
 ruamel.yaml==0.18.10
 s3fs==2025.3.2
 sparqlwrapper==2.0.0
