@@ -5,6 +5,10 @@ NOTE: To run any of the query graph notebooks, you must have Java Runtime Enviro
 
 A small example of the RDF data structure and expected inference can be seen using the `data/example_data.ttl` file and `vocab/example_ontology.ttl` file
 
+Row-Level Access Rules:
+- Sales reps get access to a record from the department of their manager and the region they are assigned (must have access to both the country and item attached to a record)
+- Managers have access to ALL records for the department(s) they manage
+
 The structure of the final graph with ontological inference can be seen below.
 ![Graph Image](Permissions%20Graph%20Diagram.png)
 
@@ -30,4 +34,3 @@ The structure of the final graph with ontological inference can be seen below.
 ## TO DO
 - Setup a triple store using [Apache Jena](https://jena.apache.org/documentation/tdb/index.html) and use that as a [persistent data storage solution](https://github.com/Wimmics/corese/blob/master/docs/storage/Configuring%20and%20Connecting%20to%20Different%20Storage%20Systems%20in%20Corese.md) for the Corese server
 - Add more complex rules such as negation to showcase more functionality
-- Enhance the ontology to make the querying simpler and more efficient at run time
