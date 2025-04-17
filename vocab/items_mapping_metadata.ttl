@@ -25,6 +25,12 @@
         rr:objectMap [
             rr:template "local://security.permissions.net/entities#{Department}"
         ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :hasRecord;
+        rr:objectMap [
+            rr:template "local://security.permissions.net/entities#{ItemCode}#{Country}"
+        ]
     ] . 
 
 :CountriesTriplesMap a rr:TriplesMap;
@@ -38,6 +44,12 @@
         rr:objectMap [
             rr:template "local://security.permissions.net/entities#{Region}"
         ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :hasRecord;
+        rr:objectMap [
+            rr:template "local://security.permissions.net/entities#{ItemCode}#{Country}"
+        ]
     ] .
 
 # Define the triples map for unique records and their attributes
@@ -46,16 +58,4 @@
     rr:subjectMap [
         rr:template "local://security.permissions.net/entities#{ItemCode}#{Country}";
         rr:class :Record;
-    ];
-    rr:predicateObjectMap [
-        rr:predicate :item;
-        rr:objectMap [
-            rr:template "local://security.permissions.net/entities#{ItemCode}"
-        ]
-    ];
-    rr:predicateObjectMap [
-        rr:predicate :country;
-        rr:objectMap [
-            rr:template "local://security.permissions.net/entities#{Country}"
-        ]
     ] .

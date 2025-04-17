@@ -1,7 +1,12 @@
 # rdf_permissions_example
 Using RDF, ontologies, and SPARQL to create an example of defining and displaying permissions in example "application" records
 
+NOTE: To run any of the query graph notebooks, you must have Java Runtime Environment >= 11.0 installed and accessbile on your PATH
+
 A small example of the RDF data structure and expected inference can be seen using the `data/example_data.ttl` file and `vocab/example_ontology.ttl` file
+
+The structure of the final graph with ontological inference can be seen below.
+![Graph Image](Permissions%20Graph%20Diagram.png)
 
 ## Project Structure
 ### /data
@@ -23,7 +28,6 @@ A small example of the RDF data structure and expected inference can be seen usi
     - The ontology MUST be loaded separately into RDFLib to be captured in the final graph from `/src/2-graph_setup.ipynb`
 
 ## TO DO
-- Add more details to the ontology and cleanup some of the relationships like `:Record :item :Item` and `:Record :country :Country`
 - Setup a triple store using [Apache Jena](https://jena.apache.org/documentation/tdb/index.html) and use that as a [persistent data storage solution](https://github.com/Wimmics/corese/blob/master/docs/storage/Configuring%20and%20Connecting%20to%20Different%20Storage%20Systems%20in%20Corese.md) for the Corese server
 - Add more complex rules such as negation to showcase more functionality
 - Enhance the ontology to make the querying simpler and more efficient at run time

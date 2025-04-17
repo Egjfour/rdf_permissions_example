@@ -10,55 +10,51 @@
 
 :Manager a rdfs:Class;
     rdfs:subClassOf :User ;
-    rdfs:label "Manager".
+    rdfs:label "Manager"@en .
 
 :Department a rdfs:Class;
-    rdfs:label "Department".
+    rdfs:label "Department"@en .
 
 :SalesRep a rdfs:Class;
     rdfs:subClassOf :User ;
-    rdfs:label "Sales Representative".
+    rdfs:label "Sales Representative"@en .
 
 :Item a rdfs:Class;
-    rdfs:label "Item" .
+    rdfs:label "Item"@en .
 
 :Country a rdfs:Class;
-    rdfs:label "Country" .
+    rdfs:label "Country"@en .
 
 :Region a rdfs:Class;
-    rdfs:label "Region" .
+    rdfs:label "Region"@en .
 
 :Record a rdfs:Class ;
     rdfs:label "An individual record for a unique observation"@en .
 
 # Properties
 :hasAccess a rdf:Property, owl:TransitiveProperty;
-    rdfs:label "has access to" ;
+    rdfs:label "has access to"@en ;
     rdfs:domain rdfs:Resource ;
     rdfs:range rdfs:Resource .
 
 :repDepartment owl:propertyChainAxiom (:managedBy :managesDepartment) ;
-    rdfs:subPropertyOf :hasAccess .
+    rdfs:subPropertyOf :hasAccess ;
+    rdfs:label "Department or departments of access rights for a rep"@en ;
+    rdfs:comment "This is used to define access rights for sales reps whose set of accessible items is derived from their department"@en .
 
 :manages rdfs:subPropertyOf :hasAccess;
     owl:inverseOf :managedBy;
-    rdfs:label "manages".
+    rdfs:label "manages"@en .
 
 :managesDepartment rdfs:subPropertyOf :manages;
     rdfs:domain :Manager;
     rdfs:range :Department;
-    rdfs:label "A manager managing a department of items".
+    rdfs:label "A manager managing a department of items"@en .
 
 :handlesRegion rdfs:subPropertyOf :hasAccess ;
-    rdfs:label "handles region" ;
+    rdfs:label "handles region"@en ;
     rdfs:domain :SalesRep ;
     rdfs:range :Region .
-
-:item a owl:SymmetricProperty;
-    rdfs:label "Item being managed in the app"@en .
-
-:country a owl:SymmetricProperty;
-    rdfs:label "Country of reference for a specific record"@en .
 
 :inDepartment a rdf:Property;
     owl:inverseOf :hasItem ;
