@@ -31,6 +31,13 @@
         rr:objectMap [
             rr:template "local://security.permissions.net/entities#{ItemCode}#{Country}"
         ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :isSet;
+        rr:objectMap [
+            rml:reference "is_set";
+            rr:datatype xsd:boolean;
+        ];
     ] . 
 
 :CountriesTriplesMap a rr:TriplesMap;

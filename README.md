@@ -8,6 +8,7 @@ A small example of the RDF data structure and expected inference can be seen usi
 Row-Level Access Rules:
 - Sales reps get access to a record from the department of their manager and the region they are assigned (must have access to both the country and item attached to a record)
 - Managers have access to ALL records for the department(s) they manage
+- Additionally, some items are sets, and sales reps need additional permissions to access these items (showcased in `corese_python` notebook only)
 
 The structure of the final graph with ontological inference can be seen below.
 ![Graph Image](Permissions%20Graph%20Diagram.png)

@@ -31,6 +31,13 @@
         rr:objectMap [
             rr:template "local://security.permissions.net/entities#{Region}" ;
         ] ;
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :canSellSets;
+        rr:objectMap [
+            rml:reference "CanSellSets";
+            rr:datatype xsd:boolean;
+        ];
     ] .
 
 # Define the triples map for departments
